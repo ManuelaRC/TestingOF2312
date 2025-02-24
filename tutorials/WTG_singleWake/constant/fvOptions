@@ -1,0 +1,34 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+// Predefined thrust force (only) by user with uniform distribution across the radius
+disk1
+{
+    type            	calibratedActuatorDisk;
+    selectionMode   	cellSet;		
+    cellSet         	disk1;
+    writeToFile     	true;	
+    forceMethod	    	constantParameters;
+    loadDistribution	NRELdistribution;  		
+    diskArea        	12489;				
+    diskDir         	(1 0 0);			
+    U_inf		8.00;
+    Ct_inf		0.77;
+}
+
+// ************************************************************************* //

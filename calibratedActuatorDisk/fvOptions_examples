@@ -1,0 +1,120 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//*************************** EXAMPLES OF SET-UP:  ***************************//
+/*
+// Predefined thrust force (only) by user with uniform distribution across the radius
+disk1
+{
+    type            	calibratedActuatorDisk;     < --- Call user-built fvOption class
+    selectionMode   	cellSet;			
+    cellSet         	disk1;                      < --- This cellSet must already exists in the mesh
+    writeToFile     	true;	                    
+    
+    //forceMethod	    constantParameters;  		< --- This is default method used if not specificed
+    //loadDistribution 	uniformlyDistributed; 		< --- This is default method used if not specificed
+    diskArea        	7389;				        < --- Area = pi*(radiusOftheRotor^2)
+    diskDir         	(1 0 0);			        < --- Flow's positive streamwise direction
+    
+    U_inf				8.0;                        < --- Fixed U_ref_ value to use in the formula of thrust force magnitude
+    Ct_inf				0.75;                       < --- Fixed Ct_ref_ value to use in the formula of thrust force magnitude
+    //Cp_inf			0.30;					    < --- Cp is only necessary for rotational force
+}
+
+// Fixed thrust coefficient placed by user. Readings of reference flow speed from
+	// any probe or cellSet at the upstream. Rotational force is considered.
+disk2
+{
+    type            	calibratedActuatorDisk;
+    selectionMode   	cellSet;			
+    cellSet         	disk1;	
+    writeToFile     	true;
+    
+    forceMethod	        constantCt;  		
+    loadDistribution   	NRELdistribution;           < --- Radial-load distribution of the thrust force
+    monitorMethod		upstreamCellSet;            < --- Monitor method chosen (will average wind speed from an upstream cellSet)
+    upstreamCellSet		upstream_disk2;             < --- This cellSet must already exists in the mesh
+    
+    diskArea        	7389;				
+    diskDir         	(1 0 0);			
+    
+    Ct_inf				0.75;
+    Cp_inf				0.30;                       < --- Required if rotSpeed != 0.0
+    rotSpeed			0.8;                        < --- Rotating force will be applied since rotSpeed != 0.0                           
+}
+
+// Induced & fixed thrust coefficient (only) placed by user. Readings of reference flow speed from
+	// the current actuator disk cellSet
+disk3
+{
+    type            	calibratedActuatorDisk;
+    selectionMode   	cellSet;			
+    cellSet         	disk1;	
+    writeToFile     	true;
+    
+    forceMethod	        calafMethod;              		
+    Ct_star				1.50;                       < --- Ct_star = Ct_ref * (U_inf / Uad)^2 , Uad: average-wind speend
+    //monitorMethod		actuatorDisk;		        < --- This is default method used if not specificed
+    
+    diskArea        	7389;				
+    diskDir         	(1 0 0);			
+
+}
+
+
+// Thrust force calibrated by readings from local actuatordisk and interpolation from tabulated data 
+	//from a .csv file
+disk4
+{
+    type            	calibratedActuatorDisk;
+    selectionMode   	cellSet;			
+    cellSet         	disk1;	
+    writeToFile     	true;
+    
+    forceMethod	        interpolatedFromTable;
+    loadDistribution  	NRELdistribution;
+    //monitorMethod		actuatorDisk;		        < --- This is default method used if not specificed
+    pathToCsvTable		"constant/g80model.csv"     < --- Mandatory in the case of interpolatedFromTable
+                                                        //Uad column must have values different from 0.0 since it will be required for interpolation                                 
+    
+    diskArea        	7389;				
+    diskDir         	(1 0 0);			
+}
+
+// Thrust force calibrated by readings from an upstream probe and interpolation from tabulated data 
+	//from a .csv file
+disk4
+{
+    type            	calibratedActuatorDisk;
+    selectionMode   	cellSet;			
+    cellSet         	disk1;	
+    writeToFile     	true;
+    
+    forceMethod	        interpolatedFromTable;
+    loadDistribution  	NRELdistribution;
+    monitorMethod		upstreamPoint;
+    monitorPoint		(-200.0 0.0 0.0);           < --- This point must exists in the mesh
+    pathToCsvTable		"constant/g80model.csv";    < --- Uad column can have 0.0 values, will not be required for interpolation 
+    
+    diskArea        	7389;				
+    diskDir         	(1 0 0);			
+}
+
+*/
+
+// ************************************************************************* //
+

@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "calibratedActuatorDisk.C": "cpp",
+        "calibratedActuatorDiskTemplates.C": "cpp",
+        "myLookupTable4Turbines.C": "cpp",
+        "numeric": "cpp",
+        "ostream": "cpp",
+        "vector": "cpp"
+    }
+}

@@ -1,0 +1,43 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+avgDisk1
+{
+    // Mandatory entries (unmodifiable)
+    type            volFieldValue;
+    libs            (fieldFunctionObjects);
+
+    // Mandatory entries (runtime modifiable)
+    fields          (U k);
+    operation       volAverage;
+    regionType      cellSet;
+    name	    disk1;	
+
+    // Optional entries (runtime modifiable)
+    postOperation   none;
+    weightField     none;
+
+    // Optional (inherited) entries
+    writeFields     false;
+    scalingFactor   1.0;
+    writePrecision  6;
+    writeToFile     true;
+    useUserTime     true;
+    //region          region0;
+    enabled         true;
+    log             true;
+    timeStart       0;
+    timeEnd         20000;
+    executeControl  timeStep;
+    executeInterval 10;
+    writeControl    timeStep;
+    writeInterval   10;
+}
+
+
+// ************************************************************************* //

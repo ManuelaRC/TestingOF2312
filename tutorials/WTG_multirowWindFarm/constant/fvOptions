@@ -1,0 +1,47 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+upfrontTurbine
+{
+    type            	calibratedActuatorDisk;
+    selectionMode   	cellSet;		
+    cellSet         	disk1;
+    writeToFile     	true;	
+    forceMethod	    	interpolatedFromTable; //
+    loadDistribution	NRELdistribution;
+    pathToCsvTable	"constant/NRELdata.csv";
+    monitorMethod	actuatorDisk;
+    diskArea        	12489;				
+    diskDir         	(1 0 0);					
+}
+
+backTurbine
+{
+    type            	calibratedActuatorDisk;
+    selectionMode   	cellSet;		
+    cellSet         	disk2;
+    writeToFile     	true;	
+    forceMethod	    	interpolatedFromTable; //
+    loadDistribution	NRELdistribution;
+    pathToCsvTable	"constant/NRELdata.csv";
+    monitorMethod	actuatorDisk;
+    diskArea        	12489;				
+    diskDir         	(1 0 0);					
+}
+
+
+// ************************************************************************* //

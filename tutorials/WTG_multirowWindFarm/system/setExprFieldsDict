@@ -1,0 +1,103 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      setExprFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+expressions
+(
+    U
+    {
+        field       U;
+        dimensions  [0 1 -1 0 0 0 0];
+
+        //constants
+        //{
+            //centre (0.21 0 0.01);
+        //}
+
+        variables
+        (
+	    //"radius = 0.1"
+            "kappa = 	0.40"
+            "z0 = 	0.005"
+            "uFric = 	0.326591"
+            "Cmu = 	0.03"
+            "zPos = 	pos().z()"
+            
+        );
+    expression
+        #{
+        vector
+         ((uFric/kappa)*log((zPos + z0) / z0) , 0 , 0)
+
+        #};
+    }
+    
+    k
+    {
+        field       k;
+        dimensions  [0 2 -2 0 0 0 0];
+
+        //constants
+        //{
+            //centre (0.21 0 0.01);
+        //}
+
+        variables
+        (
+	    //"radius = 0.1"
+            "uFric = 	0.326591"
+            "Cmu = 	0.03"
+            
+        );
+    expression
+        #{
+        pow(uFric,2)/sqrt(Cmu)
+
+        #};
+    }
+    
+    epsilon
+    {
+        field       epsilon;
+        dimensions  [0 2 -3 0 0 0 0];
+
+        //constants
+        //{
+            //centre (0.21 0 0.01);
+        //}
+
+        variables
+        (
+	    //"radius = 0.1"
+            "kappa = 	0.40"
+            "z0 = 	0.005"
+            "uFric = 	0.326591"
+            "Cmu = 	0.03"
+            "zPos = 	pos().z()"
+            
+            
+        );
+    expression
+        #{
+        pow(uFric,3)/(kappa*(zPos+z0))
+
+        #};
+    }
+    
+    
+);
+
+
+// ************************************************************************* //
